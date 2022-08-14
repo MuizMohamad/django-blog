@@ -1,0 +1,8 @@
+{% extends "blog/base.html" %}
+<!-- we can reference template from another app -->
+{% block content %}
+    <div class="alert alert-primary">
+        <p>{{ user.username }}</p>
+        <!-- user is built in no need to pass to context -->
+    </div>
+{% endblock content %}

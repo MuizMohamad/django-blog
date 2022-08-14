@@ -1,0 +1,13 @@
+{% extends "blog/base.html" %}
+<!-- we can reference template from another app -->
+{% block content %}
+    <div class="alert alert-success">
+        <p>Successfully logged out</p>
+    </div>
+
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+        </small>
+    </div>
+{% endblock content %}
