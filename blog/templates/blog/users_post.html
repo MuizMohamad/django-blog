@@ -1,7 +1,10 @@
 {% extends "blog/base.html" %}
 <!-- basically we will replace content 'block' in base.html with the block content defined below -->
 {% block content %}
-    
+    {% comment %} to access current user from view object {% endcomment %}
+    {% comment %} to get number of object in paginator object uses .count {% endcomment %}
+    <h2> Posts by {{ view.kwargs.username }} ( {{ page_obj.paginator.count }} )  </h2>
+
     {% for post in posts %}
 
       <article class="media content-section">

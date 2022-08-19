@@ -3,6 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 from .models import Post
 
@@ -24,7 +26,7 @@ from django.contrib import messages
 # also can add base template eg base.html for something that will appear in every html file (template inheritance)
 # so for home we have base.html + home.html
 
-
+# example function based views
 def home(request):
 
     # how to pass data to html
@@ -34,7 +36,7 @@ def home(request):
 
     return render(request, 'blog/home.html', context)
 
-
+# example function based views
 def about(request):
     return render(request, 'blog/about.html', {'title': 'about'})
 
@@ -57,8 +59,31 @@ class PostListView(ListView):
     ordering = ['-date_posted']
     
     # list paging use this attribute
-    paginate_by: int = 2
+    paginate_by: int = 5
+
+class UsersPostListView(ListView):
+    model = Post
     
+    # by default, looking for template
+    # <app>/<model>_<viewtype>.html
+    # blog/Post_list.html
+    
+    # so need to change template
+    # with template_name and change context name 
+    # to the one we refer in template
+    template_name = 'blog/users_post.html'
+    context_object_name = 'posts'
+    
+    # to change order of posts list
+    # set ordering, with - to reverse from newest to oldest
+    ordering = ['-date_posted']
+    
+    # list paging use this attribute
+    paginate_by: int = 2
+
+    def get_queryset(self):
+        user = get_object_or_404(User,username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
 
 class PostDetailView(DetailView):
     model = Post

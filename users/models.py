@@ -29,7 +29,7 @@ class Profile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             # overwrite the image on path
-            img.save()
+            img.save(self.image.path)
         
         
     
