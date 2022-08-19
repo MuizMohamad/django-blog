@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+<!-- we can reference template from another app -->
+{% load crispy_forms_tags %}
+<!-- load crispy_forms for better format -->
+{% block content %}
+    <div class="content-section">
+        <!-- need to add csrf token (django convention) -->
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Create New Post</legend>
+                {{ form|crispy }}
+                <!-- as_p render form as paragraph -->
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">
+                    Update Post
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

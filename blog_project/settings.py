@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -145,3 +145,8 @@ LOGIN_REDIRECT_URL = 'blog-home'
 # tell django to find login page in case where a non login user
 # wanted to access logged-in only page
 LOGIN_URL = 'login' # login is the name of the url
+
+# where images will be stored
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+# how to access media directory through browser
+MEDIA_URL = '/media/'

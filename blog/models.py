@@ -2,7 +2,8 @@ from statistics import mode
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from django.urls import reverse
+from django.contrib import messages
 # Create your models here.
 
 # a Post model use for database (kind of one table of Post)
@@ -21,3 +22,7 @@ class Post(models.Model):
 
     def __str__(self):
         return "{} by {}".format(self.title, self.author.username)
+    
+    def get_absolute_url(self):
+        # reverse return full path as a string
+        return reverse('post-detail',kwargs={'pk':self.pk})
